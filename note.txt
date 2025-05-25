@@ -1,0 +1,4 @@
+Sử dụng clerk cho authentication
+Sử dụng Neon + Drizzle cho lưu trữ database
+Sử dụng UIUXMock cho việc tạo UI
+Trang https://www.untitledui.com/ cung cấp hình ảnh logo,...
