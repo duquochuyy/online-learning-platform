@@ -21,6 +21,7 @@ import { Button } from "@/components/ui/button";
 import { Loader2Icon, Sparkle } from "lucide-react";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
+import { useRouter } from "next/navigation";
 
 const AddNewCourseDialog = ({ children }) => {
   const [loading, setLoading] = useState(false);
@@ -32,6 +33,8 @@ const AddNewCourseDialog = ({ children }) => {
     level: "",
     category: "",
   });
+  const router = useRouter();
+
   const onHandleInputChange = (field, value) => {
     setFormData((prev) => ({
       ...prev,
@@ -50,6 +53,7 @@ const AddNewCourseDialog = ({ children }) => {
       });
       console.log(result.data);
       setLoading(false);
+      router.push("/workspace/edit-course/" + result.data?.courseId)
     } catch (e) {
       setLoading(false);
       console.log(e);
