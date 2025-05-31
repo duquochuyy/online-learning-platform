@@ -33,13 +33,14 @@ Schema:
 User Input:
 `;
 
+export const ai = new GoogleGenAI({
+  apiKey: process.env.GEMINI_API_KEY,
+});
+
 export async function POST(req) {
   const { courseId, ...formData } = await req.json();
   const user = await currentUser();
 
-  const ai = new GoogleGenAI({
-    apiKey: process.env.GEMINI_API_KEY,
-  });
   const config = {
     responseMimeType: "text/plain",
   };
@@ -76,7 +77,7 @@ export async function POST(req) {
     courseJson: JSONResp,
     userEmail: user?.primaryEmailAddress?.emailAddress,
     cid: courseId,
-    bannerImageURL: bannerImageURL
+    bannerImageURL: bannerImageURL,
   });
 
   return NextResponse.json({

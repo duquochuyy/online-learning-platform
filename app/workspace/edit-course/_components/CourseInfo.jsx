@@ -1,10 +1,28 @@
 import { Button } from "@/components/ui/button";
-import { Book, Clock, TrendingUp } from "lucide-react";
+import axios from "axios";
+import { Book, Clock, Loader2Icon, Settings, TrendingUp } from "lucide-react";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 
 const CourseInfo = ({ course }) => {
   const courseLayout = course?.courseJson?.course;
+  const [loading, setLoading] = useState(false);
+  const GenerateCourseContent = async () => {
+    setLoading(true);
+    try {
+      const result = await axios.post("/api/generate-course-content", {
+        courseJson: courseLayout,
+        courseTitle: course?.name,
+        courseId: course?.cid,
+      });
+      setLoading(false);
+    } catch (e) {
+      console.log(e);
+      setLoading(false);
+    }
+    
+  };
+
   return (
     <div className="md:flex gap-5 justify-between p-5 rounded-2xl shadow">
       <div className="flex flex-col gap-3">
@@ -38,7 +56,14 @@ const CourseInfo = ({ course }) => {
           </div>
         </div>
 
-        <Button>Generate Content</Button>
+        <Button
+          className="max-w-sm"
+          onClick={GenerateCourseContent}
+          disable={loading}
+        >
+          {loading ? <Loader2Icon className="animate-spin" /> : <Settings />}
+          Generate Content
+        </Button>
       </div>
 
       <Image
