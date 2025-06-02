@@ -5,3 +5,7 @@ Trang https://www.untitledui.com/ cung cấp hình ảnh logo,...
 Dùng gemini API để generate course
 Docs: https://app.eraser.io/workspace/mbK28XBqDc7HQDrhQYuz
 Dùng AI Guru lab để gen banner course
+Muốn sử dụng API youtube: 
+    + Enable Youtube API (trong google cloud)
+    + Tạo credentials (loại OAuth 2.0)
+    + Vào trang https://developers.google.com/youtube/v3 để sử dụng
