@@ -22,7 +22,7 @@ const CourseList = () => {
 
   return (
     <div className="mt-10">
-      <h2 className="font-bold text-3xl">Course List</h2>
+      <h2 className="font-bold text-3xl mb-3">Course List</h2>
       {courseList?.length == 0 ? (
         <div className="flex flex-col p-7 justify-center items-center border rounded-2xl mt-2 bg-secondary">
           <Image
