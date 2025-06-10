@@ -1,15 +1,23 @@
 import { Button } from "@/components/ui/button";
 import axios from "axios";
-import { Book, Clock, Loader2Icon, Settings, TrendingUp } from "lucide-react";
+import {
+  Book,
+  Clock,
+  Loader2Icon,
+  PlayCircle,
+  Settings,
+  TrendingUp,
+} from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "sonner";
 
-const CourseInfo = ({ course }) => {
+const CourseInfo = ({ course, viewCourse = false }) => {
   const courseLayout = course?.courseJson?.course;
   const [loading, setLoading] = useState(false);
-  const router = useRouter()
+  const router = useRouter();
 
   const GenerateCourseContent = async () => {
     setLoading(true);
@@ -20,14 +28,13 @@ const CourseInfo = ({ course }) => {
         courseId: course?.cid,
       });
       setLoading(false);
-      router.replace('/workspace')
-      toast.success("Course Generated successfully!!!")
+      router.replace("/workspace");
+      toast.success("Course Generated successfully!!!");
     } catch (e) {
       console.log(e);
       setLoading(false);
-      toast.error("Server Side Error. Try Again....")
+      toast.error("Server Side Error. Try Again....");
     }
-    
   };
 
   return (
@@ -63,14 +70,22 @@ const CourseInfo = ({ course }) => {
           </div>
         </div>
 
-        <Button
-          className="max-w-sm"
-          onClick={GenerateCourseContent}
-          disabled={loading}
-        >
-          {loading ? <Loader2Icon className="animate-spin" /> : <Settings />}
-          Generate Content
-        </Button>
+        {!viewCourse ? (
+          <Button
+            className="max-w-sm"
+            onClick={GenerateCourseContent}
+            disabled={loading}
+          >
+            {loading ? <Loader2Icon className="animate-spin" /> : <Settings />}
+            Generate Content
+          </Button>
+        ) : (
+          <Link href={"/course/" + course?.cid}>
+            <Button>
+              <PlayCircle /> Continue Learning
+            </Button>
+          </Link>
+        )}
       </div>
 
       <Image
