@@ -11,11 +11,10 @@ const ChapterListSidebar = ({ courseInfo }) => {
   const course = courseInfo?.courses;
   const enrollCourse = courseInfo?.enrollCourse;
   const courseContent = courseInfo?.courses?.courseContent;
-  const {selectedChapterIndex, setSelectedChapterIndex} = useContext(
+  const { selectedChapterIndex, setSelectedChapterIndex } = useContext(
     SelectedChapterIndexContext
   );
-
-  console.log(courseContent);
+  let completedChapter = enrollCourse?.completedChapters ?? [];
 
   return (
     <div className="w-80 bg-secondary h-screen p-5">
@@ -27,13 +26,24 @@ const ChapterListSidebar = ({ courseInfo }) => {
             key={index}
             onClick={() => setSelectedChapterIndex(index)}
           >
-            <AccordionTrigger className="font-medium text-lg">
+            <AccordionTrigger
+              className={`font-medium text-lg p-5 ${
+                completedChapter?.includes(index) ? "bg-green-100" : "bg-white"
+              }`}
+            >
               {index + 1}. {chapter?.courseData?.chapterName}
             </AccordionTrigger>
             <AccordionContent asChild>
               <div className="">
-                {chapter?.courseData?.topics.map((topic, index) => (
-                  <h2 key={index} className="p-3 bg-white my-1 rounded-lg">
+                {chapter?.courseData?.topics.map((topic, index_) => (
+                  <h2
+                    key={index_}
+                    className={`p-3 ${
+                      completedChapter?.includes(index)
+                        ? "bg-green-100"
+                        : "bg-white"
+                    } my-1 rounded-lg`}
+                  >
                     {topic?.topic}
                   </h2>
                 ))}

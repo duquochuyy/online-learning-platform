@@ -24,7 +24,7 @@ const Course = () => {
       <AppHeader hideSidebar={true} />
       <div className="flex gap-10">
         <ChapterListSidebar courseInfo={courseInfo} />
-        <ChapterContent courseInfo={courseInfo} />
+        <ChapterContent courseInfo={courseInfo} refreshData={() => getEnrolledCourseById()}/>
       </div>
     </div>
   );
