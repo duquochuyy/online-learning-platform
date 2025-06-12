@@ -11,14 +11,13 @@ const CourseList = () => {
   const [courseList, setCourseList] = useState([]);
   const { user } = useUser();
   useEffect(() => {
-    GetCourseList();
-  }, []);
+    user && GetCourseList();
+  }, [user]);
 
   const GetCourseList = async () => {
     const result = await axios.get("/api/courses");
     setCourseList(result.data);
   };
-
 
   return (
     <div className="mt-10">
