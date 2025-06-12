@@ -1,6 +1,6 @@
 import { db } from "@/config/db";
 import { coursesTable } from "@/config/schema";
-import { currentUser } from "@clerk/nextjs/server";
+import { auth, currentUser } from "@clerk/nextjs/server";
 import { GoogleGenAI } from "@google/genai";
 import axios from "axios";
 import { NextResponse } from "next/server";
@@ -44,6 +44,10 @@ export async function POST(req) {
   const config = {
     responseMimeType: "text/plain",
   };
+
+  const { has } = await auth();
+  const hasPremiumAccess = has({ plan: "starter" });
+
   const model = "gemini-2.0-flash";
   const contents = [
     {
@@ -56,6 +60,20 @@ export async function POST(req) {
     },
   ];
 
+  // if user already created any course ?
+  if (!hasPremiumAccess) {
+    const result = await db
+      .select()
+      .from(coursesTable)
+      .where(
+        eq(coursesTable?.userEmail, user?.primaryEmailAddress?.emailAddress)
+      );
+    if (result?.length >= 1) {
+      return NextResponse.json({
+        resp: "limit exceed",
+      });
+    }
+  }
   const response = await ai.models.generateContent({
     model,
     config,

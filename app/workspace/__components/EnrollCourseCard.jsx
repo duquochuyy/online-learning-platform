@@ -9,12 +9,14 @@ const EnrollCourseCard = ({ course, enrollCourse }) => {
   const courseJson = course?.courseJson?.course;
 
   const CalculatePerProgress = () => {
-    return (
+  return (
+    (
       ((enrollCourse?.completedChapters?.length ?? 0) /
         course?.courseContent?.length) *
       100
-    );
-  };
+    ).toFixed(2)
+  );
+};
 
   return (
     <div className="shadow rounded-xl">
