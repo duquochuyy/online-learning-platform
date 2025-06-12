@@ -82,7 +82,7 @@ const AppSidebar = () => {
                       href={item.path}
                       className={`text-[17px]
                                     ${
-                                      path.includes(item.path) &&
+                                      path === item.path &&
                                       "font-semibold text-primary bg-purple-50"
                                     } `}
                     >
