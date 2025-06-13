@@ -1,4 +1,4 @@
-Link Demo: [Click Here]([https://nextjs.org](https://online-learning-platform-dusky-nine.vercel.app/))
+Link Demo: [Click Here](https://online-learning-platform-dusky-nine.vercel.app/)
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
